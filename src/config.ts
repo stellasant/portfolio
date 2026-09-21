@@ -1,12 +1,10 @@
 /**
  * Site configuration.
  *
- * CV_URL is the single place to wire the public CV. No public CV asset was
- * supplied with the approved content, so it is null and the "Download CV" entry
- * renders as an inactive item rather than a link that goes nowhere.
+ * CV_URL is the single place the public CV is wired from. BASE_URL keeps it
+ * correct whether the site is served from a project page or a user site.
  *
- * To connect it: drop the public PDF into `app/public/` and set
- *   export const CV_URL: string | null = `${import.meta.env.BASE_URL}your-cv.pdf`
- * Nothing else needs to change.
+ * Set it to null to take the CV down: the hero and Contact then render "CV"
+ * as an inactive item instead of a link that leads nowhere.
  */
-export const CV_URL: string | null = null
+export const CV_URL: string | null = `${import.meta.env.BASE_URL}stella-maris-santamaria-cv.pdf`
