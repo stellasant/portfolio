@@ -1,0 +1,582 @@
+/* ==========================================================================
+   Recreated visuals
+
+   These are the only images on the page, and each one is requested by the
+   approved content. They are built from real DOM and CSS rather than
+   fixed-size SVG, so they reflow and their labels stay readable instead of
+   being scaled down with the drawing.
+
+   Their breakpoints are container queries, so a diagram responds to the grid
+   column it occupies rather than to the viewport.
+   ========================================================================== */
+
+.visual-frame {
+  container-type: inline-size;
+}
+
+/* --- Eight areas ---------------------------------------------------------- */
+
+.plate-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--rule-strong);
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--r-container);
+  overflow: hidden;
+}
+
+.plate-grid__cell {
+  background: var(--bg);
+  padding: clamp(14px, 3cqi, 24px);
+  display: flex;
+  align-items: center;
+  min-height: clamp(66px, 13cqi, 96px);
+  min-width: 0;
+}
+
+.plate-grid__cell span {
+  font-size: var(--fs-body);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+
+/* Presentational only: the DOM text stays exactly as the approved copy. */
+.plate-grid__cell span::first-letter {
+  text-transform: capitalize;
+}
+
+/* --- Process sequence ----------------------------------------------------- */
+
+.spine {
+  display: grid;
+  column-gap: var(--gutter);
+}
+
+.spine__step {
+  display: grid;
+  grid-template-columns: 2.25rem minmax(0, 1fr);
+  gap: var(--s-4);
+  align-items: baseline;
+  padding-block: var(--s-3);
+  border-top: 1px solid var(--rule-strong);
+}
+
+.spine__num {
+  font-size: var(--fs-meta);
+  font-weight: 700;
+  color: var(--ink-2);
+  font-variant-numeric: tabular-nums;
+}
+
+.spine__label {
+  font-size: var(--fs-body);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.35;
+  color: var(--ink);
+}
+
+.spine__label::first-letter {
+  text-transform: capitalize;
+}
+
+@container (min-width: 560px) {
+  .spine {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@container (min-width: 900px) {
+  .spine {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* --- Command lifecycle ----------------------------------------------------
+   The gap between steps is the point: nothing chains automatically, the
+   developer moves each step forward. */
+
+.flow {
+  display: grid;
+}
+
+.flow__step {
+  display: grid;
+}
+
+.flow__node {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--r-container);
+  padding: var(--s-3) var(--s-5);
+  font-size: var(--fs-body);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.flow__gate {
+  display: grid;
+  place-items: center;
+  height: 28px;
+  position: relative;
+}
+
+.flow__gate::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  left: 50%;
+  width: 1px;
+  border-left: 1px dashed var(--rule-strong);
+}
+
+.flow__gate::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border: 1.5px solid var(--ink-2);
+  border-radius: 50%;
+  background: var(--surface);
+  position: relative;
+}
+
+.flow__outputs {
+  margin-top: var(--s-5);
+  padding-top: var(--s-5);
+  border-top: 1px dashed var(--rule-strong);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+
+.flow__output {
+  font-size: var(--fs-meta);
+  font-weight: 700;
+  color: var(--ink-2);
+  border: 1px dashed var(--rule-strong);
+  border-radius: var(--r-container);
+  padding: 6px 12px;
+}
+
+@container (min-width: 700px) {
+  .flow {
+    display: flex;
+    align-items: center;
+  }
+
+  .flow__step {
+    flex: 0 0 auto;
+  }
+
+  .flow__node {
+    width: auto;
+  }
+
+  .flow__gate {
+    flex: 1 1 24px;
+    min-width: 24px;
+    height: 24px;
+  }
+
+  .flow__gate::before {
+    inset: 50% 0 auto 0;
+    width: auto;
+    height: 0;
+    border-left: 0;
+    border-top: 1px dashed var(--rule-strong);
+  }
+}
+
+/* --- Terminal artefact ----------------------------------------------------
+   The one dark surface, because the approved content asks for a terminal, and
+   the only place a monospace appears. A system stack: no second webfont. */
+
+.terminal {
+  background: var(--term-bg);
+  color: var(--term-ink);
+  border-radius: var(--r-container);
+  padding: clamp(18px, 3cqi, 32px);
+  font-family: var(--font-term);
+  font-size: var(--fs-meta);
+  overflow: hidden;
+}
+
+.terminal__steps {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+}
+
+.terminal__step {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  color: var(--term-mid);
+  white-space: nowrap;
+}
+
+.terminal__step[data-state='done'] {
+  color: var(--term-ink);
+}
+
+.terminal__step[data-state='active'] {
+  color: var(--term-accent);
+}
+
+.terminal__count {
+  font-variant-numeric: tabular-nums;
+}
+
+.terminal__arrow {
+  color: var(--term-mid);
+  opacity: 0.5;
+}
+
+/* Marks drawn rather than typed, so no glyph can fall back to tofu. The exact
+   source line is in the DOM for assistive technology. */
+.tmark {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+}
+
+.tmark[data-state='pending'] {
+  border-style: dashed;
+  opacity: 0.7;
+}
+
+.tmark[data-state='done'] {
+  border: 0;
+}
+
+.tmark[data-state='done']::after {
+  content: '';
+  width: 10px;
+  height: 5px;
+  border-left: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: translateY(-2px) rotate(-45deg);
+}
+
+.tmark[data-state='active']::after {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+@container (min-width: 540px) {
+  .terminal__steps {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--s-3);
+  }
+}
+
+/* --- Plugin layers -------------------------------------------------------- */
+
+.layers {
+  display: grid;
+  gap: 1px;
+  background: var(--rule-strong);
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--r-container);
+  overflow: hidden;
+}
+
+.layer {
+  background: var(--bg);
+  padding: clamp(14px, 2.6cqi, 22px);
+  display: grid;
+  gap: var(--s-3);
+  min-width: 0;
+}
+
+.layer__name {
+  font-size: var(--fs-body);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+@container (min-width: 520px) {
+  .layer {
+    grid-template-columns: minmax(0, 14rem) minmax(0, 1fr);
+    align-items: center;
+    gap: var(--s-5);
+  }
+}
+
+/* --- Team handoffs -------------------------------------------------------- */
+
+.handoffs {
+  display: grid;
+  gap: var(--s-4);
+}
+
+.handoff {
+  display: grid;
+  gap: var(--s-3);
+  padding: clamp(14px, 2.6cqi, 22px);
+  background: var(--bg);
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--r-container);
+  align-content: start;
+  min-width: 0;
+}
+
+.handoff__route {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  font-size: var(--fs-meta);
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.handoff__arrow {
+  flex: 1;
+  height: 1px;
+  min-width: 20px;
+  background: repeating-linear-gradient(
+    to right,
+    var(--rule-strong) 0 4px,
+    transparent 4px 8px
+  );
+}
+
+.handoff__role {
+  border: 1px solid var(--rule-strong);
+  border-radius: 6px;
+  padding: 4px 10px;
+}
+
+.handoff__text {
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+}
+
+@container (min-width: 520px) {
+  .handoffs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* --- Migration orchestrator ----------------------------------------------- */
+
+.chart {
+  display: grid;
+}
+
+.chart__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+}
+
+.chart__lane {
+  display: none;
+}
+
+.chart__cell {
+  min-width: 0;
+}
+
+.chart__link {
+  height: 22px;
+  margin-left: 16px;
+  border-left: 1px solid var(--ink-2);
+}
+
+.chart__link--branch {
+  border-left-style: dashed;
+}
+
+.node {
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--rule-strong);
+  border-radius: var(--r-container);
+  padding: var(--s-3) var(--s-5);
+  display: grid;
+  gap: var(--s-2);
+  min-width: 0;
+}
+
+.node__tag {
+  font-size: var(--fs-meta);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+.node__title {
+  font-size: var(--fs-body);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+
+.node__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 0;
+  font-size: var(--fs-meta);
+  line-height: 1.45;
+  color: var(--ink-2);
+}
+
+.node__meta li {
+  padding-inline: var(--s-3);
+  border-left: 1px solid var(--rule-strong);
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.node__meta li:first-child {
+  padding-left: 0;
+  border-left: 0;
+}
+
+.node--terminal {
+  background: var(--surface);
+  border: 1px dashed var(--rule-strong);
+}
+
+.node--decision {
+  background: var(--decide-tint);
+  border-color: color-mix(in srgb, var(--decide) 30%, transparent);
+  border-left-color: var(--decide);
+}
+
+.node--stop {
+  border-left-color: var(--accent);
+}
+
+.branch {
+  display: grid;
+  gap: var(--s-4);
+}
+
+.branch__arm {
+  display: grid;
+  gap: var(--s-2);
+  min-width: 0;
+}
+
+.branch__label {
+  font-size: var(--fs-meta);
+  font-weight: 700;
+  color: var(--ink-2);
+}
+
+.repeat {
+  position: relative;
+  border: 1px dashed var(--rule-strong);
+  border-radius: var(--r-container);
+  padding: var(--s-5);
+  display: grid;
+}
+
+.repeat__label {
+  position: absolute;
+  top: -0.72em;
+  left: var(--s-5);
+  background: var(--surface);
+  padding-inline: var(--s-2);
+  font-size: var(--fs-meta);
+  font-weight: 700;
+  color: var(--ink-2);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.chart__legend {
+  margin-top: var(--s-5);
+  padding-top: var(--s-4);
+  border-top: 1px solid var(--rule-strong);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2) var(--s-5);
+  font-size: var(--fs-meta);
+  color: var(--ink-2);
+}
+
+.chart__legend li {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+}
+
+.chart__swatch {
+  flex: none;
+  width: 16px;
+  height: 12px;
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--rule-strong);
+  border-radius: 3px;
+  background: var(--bg);
+}
+
+.chart__swatch[data-kind='decision'] {
+  background: var(--decide-tint);
+  border-left-color: var(--decide);
+}
+
+.chart__swatch[data-kind='terminal'] {
+  background: var(--surface);
+  border-style: dashed;
+  border-left-width: 1px;
+}
+
+@container (min-width: 480px) {
+  .branch {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@container (min-width: 700px) {
+  .chart__row {
+    grid-template-columns: 9rem minmax(0, 1fr);
+    column-gap: var(--s-6);
+  }
+
+  .chart__lane {
+    display: block;
+    padding-top: var(--s-4);
+    font-size: var(--fs-meta);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+    line-height: 1.3;
+  }
+
+  .chart__cell,
+  .chart__link {
+    grid-column: 2;
+  }
+
+  .node__tag {
+    display: none;
+  }
+}

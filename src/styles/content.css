@@ -1,0 +1,255 @@
+/* ==========================================================================
+   Content primitives
+
+   One reading column, one set of type roles, one rhythm. Everything between
+   the hero and Earlier Design Work is built from these.
+   ========================================================================== */
+
+/* The single readable measure. Paragraphs never spread wider than this, no
+   matter how much horizontal space the container has. */
+.text {
+  max-width: var(--text-w);
+}
+
+/* --- Classification -------------------------------------------------------
+   The terms the approved copy carries per item, set as code-style pills: a
+   light fill, the monospace system stack, dark grey text. No extra webfont is
+   loaded — this is the same stack the terminal artefact uses. */
+
+.meta-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+
+.meta-list li {
+  font-family: var(--font-term);
+  font-size: var(--fs-meta);
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  line-height: 1.5;
+  color: var(--ink-2);
+  background: var(--surface);
+  border-radius: 6px;
+  padding: 4px 9px;
+  white-space: nowrap;
+}
+
+/* --- Entry ----------------------------------------------------------------
+   The one article pattern used by Featured Work, Technical Initiatives,
+   Current AI Work, Experience by Area and Leadership. A project, an
+   initiative and an experience area all read the same way. */
+
+.entries {
+  display: grid;
+}
+
+.entry + .entry {
+  margin-top: var(--space-project);
+  border-top: 1px solid var(--rule);
+  padding-top: var(--space-project);
+}
+
+.entry__title {
+  font-size: var(--fs-project);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: var(--lh-title);
+  max-width: var(--text-w);
+}
+
+.entry__meta {
+  margin-top: var(--s-4);
+}
+
+/* Heading to summary. Set like a pull quote: a rule down the left edge, so it
+   reads as the one line that says why the work mattered. */
+.entry__summary {
+  margin-top: var(--gap-heading);
+  padding-left: var(--s-5);
+  border-left: 3px solid var(--ink);
+  font-size: var(--fs-summary);
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  max-width: var(--text-w);
+}
+
+/* Summary to the first content block. */
+.entry__body {
+  margin-top: var(--gap-lead);
+}
+
+/* --- Parts ----------------------------------------------------------------
+   Background / My work / Outcome, and the named groups of the long-form case.
+   A subheading and its paragraph, nothing else. No box, no column, no label
+   chrome. */
+
+.parts {
+  display: grid;
+  gap: var(--space-related);
+}
+
+.part {
+  max-width: var(--text-w);
+}
+
+/* A visual placed between parts is spaced by the grid gap, not twice. */
+.parts > .visual-block {
+  margin-top: 0;
+}
+
+/* The subheading is the control. It stays visible collapsed or open, so the
+   outline of a project is always readable. */
+.part__label {
+  font-size: var(--fs-sub);
+  font-weight: 700;
+  letter-spacing: -0.005em;
+  line-height: 1.3;
+  color: var(--ink);
+}
+
+.part__toggle {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s-3);
+  width: 100%;
+  max-width: var(--text-w);
+  padding: 0;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  transition: color var(--dur-1) var(--ease);
+}
+
+.part__toggle:hover {
+  color: var(--accent);
+}
+
+.part__mark {
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(-45deg);
+  transform-origin: center;
+  transition: transform var(--dur-2) var(--ease);
+  align-self: center;
+  margin-top: -2px;
+}
+
+.part[data-open='true'] .part__mark {
+  transform: rotate(45deg);
+  margin-top: -4px;
+}
+
+.part__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--dur-2) var(--ease);
+}
+
+.part[data-open='true'] .part__panel {
+  grid-template-rows: 1fr;
+}
+
+.part__inner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.part__content {
+  padding-top: var(--gap-sub);
+}
+
+/* An open part has no panel to animate, so it takes the gap directly. */
+.part__content--open {
+  padding-top: var(--gap-sub);
+}
+
+/* A nested group inside an open accordion. */
+.subpart + .subpart,
+.part__content > .subpart {
+  margin-top: var(--space-related);
+}
+
+.subpart__label {
+  font-size: var(--fs-body);
+  font-weight: 700;
+  letter-spacing: -0.005em;
+  line-height: 1.3;
+  color: var(--ink);
+  margin-bottom: var(--gap-sub);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .part__panel {
+    transition: none;
+  }
+}
+
+/* Subheading to its paragraph. */
+.part__body {
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+}
+
+.part__body + .part__body,
+.part__body + .bullets,
+.bullets + .part__body,
+.part__body + .tokens,
+.tokens + .part__body {
+  margin-top: var(--s-4);
+}
+
+/* --- Bullets -------------------------------------------------------------- */
+
+.bullets {
+  display: grid;
+  gap: var(--s-3);
+  max-width: var(--text-w);
+}
+
+.bullets li {
+  position: relative;
+  padding-left: var(--s-5);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+  min-width: 0;
+  overflow-wrap: break-word;
+}
+
+.bullets li::before {
+  content: '';
+  position: absolute;
+  left: 3px;
+  top: 0.66em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--ink-2);
+}
+
+/* --- Token rows -----------------------------------------------------------
+   Commands and agent names from the approved copy. */
+
+.tokens {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  max-width: var(--text-w);
+}
+
+.tokens li {
+  font-size: var(--fs-meta);
+  font-weight: 700;
+  color: var(--ink);
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--r-container);
+  padding: 6px 12px;
+}

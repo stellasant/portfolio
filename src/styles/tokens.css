@@ -1,0 +1,134 @@
+/* ==========================================================================
+   Design tokens
+
+   The visual system is information design: typography, grid, alignment,
+   whitespace, proportion and rules. There is no decorative layer.
+
+   Every type and spacing token is a clamp solved so that it lands inside the
+   brief's stated band at 1024px AND at 1440px, not only at the extremes:
+   value = intercept + slope·vw, with slope = (desktopMax − desktopMin) / 416
+   (the 1024 → 1440 span) and the mobile floor as the clamp minimum.
+   ========================================================================== */
+
+:root {
+  /* --- Grid ---------------------------------------------------------------
+     12 columns on desktop, 8 on tablet, 4 on mobile. */
+  --grid-max: 1180px;
+  --grid-pad: 40px;
+  --gutter: 32px;
+  --cols: 12;
+
+  /* --- Colour --------------------------------------------------------------
+     Warm neutral, one accent. Hierarchy comes from weight and scale; colour
+     never carries it alone. */
+  --bg: #faf9f7;
+  --surface: #f1efe9;
+  /* Headings sit at near-black; body text steps back to a mid grey. The
+     gap between them is what makes the headings read first. */
+  --ink: #0f0f0c;
+  --ink-2: #6a6760;
+  --rule: #e3e0d8;
+  --rule-strong: #cfcbc0;
+  --accent: #1f4bb8;
+
+  /* The terminal artefact is the only dark surface, because the approved
+     content asks for a terminal. */
+  --term-bg: #17171a;
+  --term-ink: #f2f1ec;
+  --term-mid: #9b988f;
+  --term-accent: #7fa6f5;
+
+  /* Critical decisions inside the migration diagram only. */
+  --decide: #8a5a12;
+  --decide-tint: #f6efe0;
+
+  /* --- Type ---------------------------------------------------------------- */
+  --font: 'Nunito', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  /* Headings only. Nunito's companion sans: same skeleton, straight terminals
+     instead of rounded, and weights up to 900. */
+  --font-display: 'Nunito Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-term: ui-monospace, 'Cascadia Mono', 'SF Mono', Menlo, Consolas, monospace;
+
+  /* 44–52 mobile, 72–88 desktop */
+  --fs-hero: clamp(44px, 2.04rem + 3.85vw, 88px);
+  /* 22–25 mobile, 28–32 desktop */
+  --fs-role: clamp(22px, 1.134rem + 0.96vw, 32px);
+  /* Section headings: twice the size of the 30–38 entry titles under them,
+     so the two never read as the same level. */
+  --fs-section: clamp(38px, 1.72rem + 3.37vw, 76px);
+  /* 30–38 desktop */
+  --fs-project: clamp(26px, 0.644rem + 1.92vw, 38px);
+  /* 19–21 desktop: smaller than before, carried by weight and the rule beside
+     it rather than by size. */
+  --fs-summary: clamp(17px, 0.88rem + 0.48vw, 21px);
+  /* Background / My work / Outcome: a real subheading, 17–19 at 700 */
+  --fs-sub: clamp(16px, 0.756rem + 0.48vw, 19px);
+  /* 20–23 mobile, 23–27 desktop */
+  --fs-h3: clamp(20px, 0.822rem + 0.96vw, 27px);
+  /* 16–17 mobile, 17–18 desktop */
+  --fs-body: clamp(16px, 0.909rem + 0.24vw, 18px);
+  /* 13 mobile, 13–14 desktop */
+  --fs-meta: clamp(13px, 0.659rem + 0.24vw, 14px);
+
+  --lh-body: 1.55;
+  --lh-summary: 1.45;
+  --lh-title: 1.1;
+  --lh-display: 1.04;
+
+  --measure: 68ch;
+  --measure-narrow: 46ch;
+
+  /* --- Space ---------------------------------------------------------------
+     Whitespace groups. Three steps only, so proximity stays legible. */
+  /* Between sections: still the largest gap on the page, but no longer a
+     chasm — 56 on a phone, 88 by 1024, 96 from ~1180 up. */
+  --space-section: clamp(56px, 2.27rem + 5.05vw, 96px);
+  /* Between entries inside a section. */
+  --space-project: clamp(44px, 1.9rem + 3.6vw, 72px);
+  /* Section heading block to the content under it. */
+  --space-block: clamp(36px, 0.54rem + 3.85vw, 64px);
+  /* Between paragraph groups. */
+  --space-related: clamp(20px, 0.888rem + 0.96vw, 28px);
+  /* Heading to summary, summary to first block, subheading to its paragraph. */
+  --gap-heading: 24px;
+  --gap-lead: clamp(24px, 2.2vw, 32px);
+  --gap-sub: 12px;
+
+  /* One readable measure for every paragraph on the page. */
+  --text-w: 780px;
+
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 24px;
+  --s-6: 32px;
+
+  --nav-h: 64px;
+
+  /* --- Material ------------------------------------------------------------
+     Radius appears only on the containers a visual genuinely needs. */
+  --r-visual: 18px;
+  --r-container: 11px;
+
+  --dur-1: 180ms;
+  --dur-2: 250ms;
+  --ease: cubic-bezier(0.22, 0.61, 0.24, 1);
+}
+
+@media (max-width: 1023px) {
+  :root {
+    --grid-pad: 32px;
+    --gutter: 24px;
+    --cols: 8;
+  }
+}
+
+@media (max-width: 767px) {
+  :root {
+    --grid-pad: 20px;
+    --gutter: 16px;
+    --cols: 4;
+    --nav-h: 58px;
+  }
+}

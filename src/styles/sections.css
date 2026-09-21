@@ -1,0 +1,188 @@
+/* ==========================================================================
+   Section compositions
+
+   Everything between the hero and Earlier Design Work is one reading column
+   of entries. The only two-column arrangements left on the page are the ones
+   the content genuinely needs: the hero, and the Earlier Design Work image
+   grid — the sections asked to be left alone.
+   ========================================================================== */
+
+/* --- 01 Hero — unchanged -------------------------------------------------- */
+
+.hero {
+  padding-top: calc(var(--nav-h) + var(--space-section));
+  padding-bottom: var(--space-section);
+  border-top: 0;
+}
+
+.hero__name {
+  font-size: var(--fs-hero);
+  font-weight: 900;
+  letter-spacing: -0.028em;
+  line-height: var(--lh-display);
+}
+
+.hero__role {
+  margin-top: var(--s-4);
+  font-size: var(--fs-role);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--ink-2);
+}
+
+.hero__aside {
+  display: grid;
+  gap: var(--space-related);
+  align-content: start;
+}
+
+.hero__intro {
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+  text-align: justify;
+  /* Justified text needs hyphenation, or the word spacing opens into rivers. */
+  hyphens: auto;
+}
+
+.hero__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-5);
+  font-size: var(--fs-body);
+  font-weight: 700;
+}
+
+/* No public CV asset yet, so this stays inactive rather than a dead link. */
+.hero__links-pending {
+  color: var(--ink-2);
+}
+
+@media (min-width: 1024px) {
+  .hero .grid {
+    align-items: start;
+  }
+}
+
+/* --- Visuals --------------------------------------------------------------
+   A requested diagram sits below the text it belongs to and may use the full
+   container, while the text stays at the reading measure. */
+
+.visual-block {
+  margin-top: var(--gap-lead);
+}
+
+.visual-block + .visual-block {
+  margin-top: var(--space-related);
+}
+
+.visual-frame {
+  background: var(--surface);
+  border-radius: var(--r-visual);
+  padding: clamp(20px, 2.4vw, 40px);
+}
+
+.visual-title {
+  margin-bottom: var(--space-related);
+  font-size: var(--fs-meta);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+/* --- 04 Current AI Work ---------------------------------------------------
+   Differentiated by a status line, not by a band, a card or a colour block. */
+
+.status {
+  display: inline-block;
+  justify-self: start;
+  margin-top: var(--s-3);
+  font-size: var(--fs-meta);
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* --- 07 Earlier Design Work ----------------------------------------------- */
+
+.earlier__intro {
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+  max-width: var(--text-w);
+}
+
+.earlier__link {
+  margin-top: var(--space-related);
+  font-size: var(--fs-body);
+  font-weight: 700;
+}
+
+/* --- 08 About / Career Path — unchanged ----------------------------------- */
+
+.path {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--s-3) var(--s-5);
+  font-size: var(--fs-h3);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  color: var(--ink-2);
+}
+
+.path li:last-child {
+  color: var(--ink);
+}
+
+.path__arrow {
+  color: var(--rule-strong);
+  font-weight: 600;
+}
+
+.about__text {
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+}
+
+/* --- 09 Contact — unchanged ----------------------------------------------- */
+
+.contact-list {
+  border-top: 1px solid var(--rule);
+}
+
+.contact-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-3) var(--s-5);
+  padding-block: var(--space-related);
+  border-bottom: 1px solid var(--rule);
+}
+
+.contact-row dt {
+  font-size: var(--fs-meta);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  flex: none;
+}
+
+.contact-row dd {
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+.contact-pending {
+  color: var(--ink-2);
+}
